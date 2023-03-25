@@ -1,0 +1,40 @@
+{
+  "headers": {
+    "NAME": "data101.vrp",
+    "COMMENT": "",
+    "TYPE": "vrptw",
+    "COORDINATES": "cartesian",
+    "NB_DEPOTS": 1,
+    "NB_CLIENTS": 100,
+    "MAX_QUANTITY": 200
+  },
+  "depots": [
+    {
+      "id_name": "d1",
+      "x": 35,
+      "y": 35,
+      "ready_time": 0,
+      "due_time": 230
+    }
+  ],
+  "clients": [
+    {
+      "id_name": "c1",
+      "x": 41,
+      "y": 49,
+      "ready_time": 161,
+      "due_time": 171,
+      "demand": 10,
+      "service": 10
+    },
+    {
+      "id_name": "c2",
+      "x": 35,
+      "y": 17,
+      "ready_time": 50,
+      "due_time": 60,
+      "demand": 7,
+      "service": 10
+    }
+  ]
+}
