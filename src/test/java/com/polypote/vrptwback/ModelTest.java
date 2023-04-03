@@ -2,7 +2,6 @@ package com.polypote.vrptwback;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.polypote.vrptwback.model.Client;
-import com.polypote.vrptwback.model.Depot;
 import com.polypote.vrptwback.model.Headers;
 import com.polypote.vrptwback.model.Root;
 import org.assertj.core.api.Assertions;
@@ -13,7 +12,6 @@ import java.io.File;
 import java.io.IOException;
 
 import static java.util.Arrays.asList;
-import static java.util.Collections.singletonList;
 
 @SpringBootTest
 public class ModelTest {
@@ -38,14 +36,14 @@ public class ModelTest {
                         .nbClients(100)
                         .maxQuantity(200)
                         .build())
-                .depots(singletonList(Depot.builder()
-                        .id_name("d1")
-                        .x(35)
-                        .y(35)
-                        .ready_time(0)
-                        .due_time(230)
-                        .build()))
                 .clients(asList(
+                        Client.builder()
+                                .id_name("d1")
+                                .x(35)
+                                .y(35)
+                                .ready_time(0)
+                                .due_time(230)
+                                .build(),
                         Client.builder()
                                 .id_name("c1")
                                 .x(41)

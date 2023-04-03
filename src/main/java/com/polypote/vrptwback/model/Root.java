@@ -13,8 +13,6 @@ import java.util.List;
 public class Root {
     @JsonProperty("headers")
     Headers headers;
-    @JsonProperty("depots")
-    List<Depot> depots;
 
     @JsonProperty("clients")
     List<Client> clients;

@@ -8,16 +8,14 @@
     "NB_CLIENTS": 100,
     "MAX_QUANTITY": 200
   },
-  "depots": [
+  "clients": [
     {
       "id_name": "d1",
       "x": 35,
       "y": 35,
       "ready_time": 0,
       "due_time": 230
-    }
-  ],
-  "clients": [
+    },
     {
       "id_name": "c1",
       "x": 41,
