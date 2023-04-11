@@ -21,7 +21,6 @@ public class RandomSolutionGenerator {
         final List<Camion> result = new ArrayList<>();
         final List<Client> clients = new ArrayList<>(root.getClients());
         final LinkedList<Client> routes = new LinkedList<>();
-        //TODO gérer le dépot*
         routes.add(clients.remove(0));
         while (!clients.isEmpty()) {
             final Client currentClient = clients.remove(random.nextInt(clients.size()));

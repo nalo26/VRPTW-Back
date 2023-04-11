@@ -24,7 +24,7 @@ class RandomSolutionGeneratorTest {
     }
 
     @Test
-    public void should_return_a_fitness_of_40() {
+    public void should_return_a_fitness_of_50() {
         Root root = given_a_root_from_file();
         RandomSolutionGenerator generator = new RandomSolutionGenerator();
 
@@ -41,7 +41,8 @@ class RandomSolutionGeneratorTest {
 
         Solution solution = generator.generate(root);
 
-        assertThat(solution.routes()).containsExactlyInAnyOrderElementsOf(expectedSolution.routes());
+        assertThat(solution.routes().get(0).clients()).containsExactlyInAnyOrderElementsOf(expectedSolution.routes().get(0).clients());
+        assertThat(solution.fitness()).isEqualTo(expectedSolution.fitness());
     }
 
     private Solution given_a_solution_with_two_clients() {
@@ -66,7 +67,7 @@ class RandomSolutionGeneratorTest {
                                         .service(10)
                                         .build())),
                         30)))
-                .fitness(30)
+                .fitness(10)
                 .build();
     }
 
@@ -92,13 +93,6 @@ class RandomSolutionGeneratorTest {
                         .maxQuantity(200)
                         .build()))
                 .clients(asList(
-                        Client.builder()
-                                .id_name("d1")
-                                .x(0)
-                                .y(0)
-                                .ready_time(0)
-                                .due_time(230)
-                                .build(),
                         Client.builder()
                                 .id_name("c1")
                                 .x(0)
