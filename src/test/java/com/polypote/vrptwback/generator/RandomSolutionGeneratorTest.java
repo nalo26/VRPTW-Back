@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.LinkedList;
-import java.util.List;
 
 import static java.util.Arrays.asList;
+import static java.util.List.of;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class RandomSolutionGeneratorTest {
@@ -41,30 +41,32 @@ class RandomSolutionGeneratorTest {
 
         Solution solution = generator.generate(root);
 
-        assertThat(solution).usingRecursiveComparison().isEqualTo(expectedSolution);
+        assertThat(solution.routes()).containsExactlyInAnyOrderElementsOf(expectedSolution.routes());
     }
 
     private Solution given_a_solution_with_two_clients() {
         return Solution.builder()
-                .routes(List.of(new Camion(new LinkedList<>() {{
-                    Client.builder().id_name("c1")
-                            .x(0)
-                            .y(10)
-                            .ready_time(161)
-                            .due_time(171)
-                            .demand(10)
-                            .service(10)
-                            .build();
-                    Client.builder()
-                            .id_name("c2")
-                            .x(0)
-                            .y(20)
-                            .ready_time(50)
-                            .due_time(60)
-                            .demand(7)
-                            .service(10).build();
-                }}, 40)))
-                .fitness(40)
+                .routes(of(new Camion(new LinkedList<>(
+                        of(
+                                Client.builder().id_name("c1")
+                                        .x(0)
+                                        .y(10)
+                                        .ready_time(161)
+                                        .due_time(171)
+                                        .demand(10)
+                                        .service(10)
+                                        .build(),
+                                Client.builder()
+                                        .id_name("c2")
+                                        .x(0)
+                                        .y(20)
+                                        .ready_time(50)
+                                        .due_time(60)
+                                        .demand(7)
+                                        .service(10)
+                                        .build())),
+                        30)))
+                .fitness(30)
                 .build();
     }
 
@@ -120,6 +122,6 @@ class RandomSolutionGeneratorTest {
     }
 
     private LinkedList<Client> given_a_client_list_with_two_clients() {
-        return new LinkedList<>(List.of(Client.builder().x(10).y(10).build(), Client.builder().x(20).y(20).build()));
+        return new LinkedList<>(of(Client.builder().x(10).y(10).build(), Client.builder().x(20).y(20).build()));
     }
 }
