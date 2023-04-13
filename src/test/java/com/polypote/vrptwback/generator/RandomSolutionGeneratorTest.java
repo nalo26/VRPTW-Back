@@ -1,6 +1,7 @@
 package com.polypote.vrptwback.generator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.polypote.vrptwback.Utils;
 import com.polypote.vrptwback.model.*;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +19,7 @@ class RandomSolutionGeneratorTest {
         LinkedList<Client> clientList = given_a_client_list_with_two_clients();
         RandomSolutionGenerator generator = new RandomSolutionGenerator();
 
-        int distance = generator.getDistance(clientList);
+        int distance = Utils.getDistance(clientList);
 
         assertThat(distance).isEqualTo(14);
     }
