@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
@@ -16,21 +15,25 @@ import java.net.URISyntaxException;
 @RestController
 public class MainController {
 
-    private Root root;
-
     private static final String FRONT_URL = "http://localhost:8050";
 
     @PostMapping("/send")
-    public void sendData(@RequestBody final Root _root) {
-        root = _root;
+    public ResponseEntity<Solution> sendDataToFront(@RequestBody final Solution result) {
+        try {
+            return ResponseEntity.status(HttpStatus.FOUND).location(new URI(FRONT_URL + "/update_graph")).body(result);
+        } catch (URISyntaxException ex) {
+            ex.printStackTrace();
+        }
+        return ResponseEntity.badRequest().build();
     }
 
 
     @PostMapping("/random")
-    public ResponseEntity<Solution> generateRandomSolution(@RequestBody Root root) throws URISyntaxException {
-        RandomSolutionGenerator randomSolutionGenerator = new RandomSolutionGenerator();
-        Solution result = randomSolutionGenerator.generate(root);
-
-        return ResponseEntity.status(HttpStatus.FOUND).location(new URI(FRONT_URL + "/update_graph")).body(result);
+    public ResponseEntity<Void> generateRandomSolution(@RequestBody Root root) {
+        new Thread(() -> {
+            final RandomSolutionGenerator randomSolutionGenerator = new RandomSolutionGenerator();
+            randomSolutionGenerator.generate(root);
+        }).start();
+        return ResponseEntity.ok(null);
     }
 }

@@ -11,11 +11,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-public class RandomSolutionGenerator {
+public class RandomSolutionGenerator extends AbstractGenerator {
 
     private final Random random = new Random();
 
-    public Solution generate(final Root root) {
+    public void generate(final Root root) {
         final List<Camion> result = new ArrayList<>();
         final List<Client> clients = new ArrayList<>(root.getClients());
         final LinkedList<Client> routes = new LinkedList<>();
@@ -26,7 +26,8 @@ public class RandomSolutionGenerator {
         }
         Camion camion = new Camion(routes, Utils.getDistance(routes));
         result.add(camion);
-        return Solution.builder().routes(result).fitness(Utils.getFitness(result)).build();
+
+        sendData(Solution.builder().routes(result).fitness(Utils.getFitness(result)).build());
     }
 
 }
