@@ -25,13 +25,13 @@ class RandomSolutionGeneratorTest {
     }
 
     @Test
-    public void should_return_a_fitness_of_50() {
+    public void should_return_a_fitness_of_66() {
         Root root = given_a_root_from_file();
         RandomSolutionGenerator generator = new RandomSolutionGenerator();
 
         Solution solution = generator.generate(root);
 
-        assertThat(solution.fitness()).usingRecursiveComparison().isEqualTo(50);
+        assertThat(solution.fitness()).usingRecursiveComparison().isEqualTo(66);
     }
 
     @Test
@@ -42,7 +42,7 @@ class RandomSolutionGeneratorTest {
 
         Solution solution = generator.generate(root);
 
-        assertThat(solution.routes().get(0).clients()).containsExactlyInAnyOrderElementsOf(expectedSolution.routes().get(0).clients());
+        assertThat(solution.routes().get(0).getRoute()).containsExactlyInAnyOrderElementsOf(expectedSolution.routes().get(0).getRoute());
         assertThat(solution.fitness()).isEqualTo(expectedSolution.fitness());
     }
 

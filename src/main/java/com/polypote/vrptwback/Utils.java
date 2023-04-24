@@ -12,7 +12,7 @@ import static java.lang.Math.sqrt;
 public class Utils {
 
     public static Integer getFitness(List<Camion> result) {
-        return result.stream().map(Camion::distance).reduce(0, Integer::sum);
+        return result.stream().map(Camion::getDistance).reduce(0, Integer::sum);
     }
 
     public static int getDistance(LinkedList<Client> routes) {
@@ -27,7 +27,7 @@ public class Utils {
         return result;
     }
 
-    private static int getEuclideanDistance(int x1, int y1, int x2, int y2) {
+    public static int getEuclideanDistance(int x1, int y1, int x2, int y2) {
         return (int) sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
     }
 }
