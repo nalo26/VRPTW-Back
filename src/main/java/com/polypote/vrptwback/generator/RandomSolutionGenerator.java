@@ -8,7 +8,7 @@ import com.polypote.vrptwback.model.Solution;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -20,15 +20,18 @@ public class RandomSolutionGenerator extends AbstractGenerator {
     public Solution generate(final Root root) {
         final List<Camion> result = new ArrayList<>();
         final List<Client> clients = new ArrayList<>(root.getClients());
-        final LinkedList<Client> routes = new LinkedList<>();
-        routes.add(clients.remove(0));
-        while (!clients.isEmpty()) {
-            final Client currentClient = clients.remove(random.nextInt(clients.size()));
-            routes.add(currentClient);
-        }
-        Camion camion = new Camion(routes, Utils.getDistance(routes));
-        result.add(camion);
+        Client depot = clients.remove(0);
+        Collections.shuffle(clients);
+        Camion currentCamion = new Camion(depot);
 
+        for (var client : clients) {
+            if (!currentCamion.addClient(client, root)) {
+                result.add(currentCamion);
+                currentCamion = new Camion(depot);
+                currentCamion.addClient(client, root);
+            }
+        }
+        result.add(currentCamion);
         return Solution.builder().routes(result).fitness(Utils.getFitness(result)).build();
     }
 
