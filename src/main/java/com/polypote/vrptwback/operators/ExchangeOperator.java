@@ -15,24 +15,31 @@ public class ExchangeOperator extends AbstractOperator {
     @Override
     public List<Solution> getNeighbours(Solution solution) {
         List<Solution> result = new ArrayList<>();
-        for (int solutionIterator = 0; solutionIterator < solution.routes().size(); solutionIterator++) {
-            final LinkedList<Camion> newRoutes = new LinkedList<>(solution.routes());
-            Camion currentCamion = newRoutes.get(solutionIterator);
+        for (int routeIterator = 0; routeIterator < solution.routes().size(); routeIterator++) {
+            LinkedList<Camion> newRoutes = new LinkedList<>(solution.routes());
+            Camion currentCamion = newRoutes.get(routeIterator);
+            LinkedList<Client> currentRoutes = currentCamion.getRoute();
+            for (int clientIterator1 = 1; clientIterator1 < currentRoutes.size() - 1; clientIterator1++) {
+                for (int clientIterator2 = 1; clientIterator2 < currentRoutes.size() - 1; clientIterator2++) {
+                    if (clientIterator1 == clientIterator2) {
+                        continue;
+                    }
+                    Client client1 = currentRoutes.get(clientIterator1);
+                    Client client2 = currentRoutes.get(clientIterator2);
 
-            int index1 = random.nextInt(0, currentCamion.getRoute().size());
-            int index2 = random.nextInt(0, currentCamion.getRoute().size());
+                    Camion newCamion = new Camion((LinkedList<Client>) currentRoutes.clone(), currentCamion.getDistance());
+                    newCamion.getRoute().set(clientIterator1, client2);
+                    newCamion.getRoute().set(clientIterator2, client1);
+                    newCamion.setDistance(Utils.getDistance(newCamion.getRoute()));
 
-            Client client1 = currentCamion.getRoute().get(index1);
-            Client client2 = currentCamion.getRoute().get(index2);
-
-            currentCamion.getRoute().set(index1, client2);
-            currentCamion.getRoute().set(index2, client1);
-
-
-            Camion newCamion = Camion.builder().route(new LinkedList<>(currentCamion.getRoute())).distance(Utils.getDistance(currentCamion.getRoute())).build();
-            newRoutes.set(solutionIterator, newCamion);
-            Solution newSolution = Solution.builder().routes(newRoutes).fitness(Utils.getFitness(newRoutes)).build();
-            result.add(newSolution);
+                    newRoutes.set(routeIterator, newCamion);
+                    Solution newSolution = Solution.builder().routes(newRoutes).fitness(Utils.getFitness(newRoutes)).build();
+                    if (!result.contains(newSolution)) {
+                        result.add(newSolution);
+                    }
+                    newRoutes = new LinkedList<>(solution.routes());
+                }
+            }
         }
         return result;
     }

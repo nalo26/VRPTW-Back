@@ -19,6 +19,7 @@ class RandomSolutionGeneratorTest {
         LinkedList<Client> clientList = given_a_client_list_with_two_clients();
         RandomSolutionGenerator generator = new RandomSolutionGenerator();
 
+
         int distance = Utils.getDistance(clientList);
 
         assertThat(distance).isEqualTo(14);
