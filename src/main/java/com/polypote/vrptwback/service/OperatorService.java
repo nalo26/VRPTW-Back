@@ -1,6 +1,8 @@
 package com.polypote.vrptwback.service;
 
 import com.polypote.vrptwback.client.DataSender;
+import com.polypote.vrptwback.generator.RandomSolutionGenerator;
+import com.polypote.vrptwback.model.Root;
 import com.polypote.vrptwback.model.Solution;
 import com.polypote.vrptwback.operators.AbstractOperator;
 import lombok.AllArgsConstructor;
@@ -13,10 +15,14 @@ import java.util.List;
 @Service
 public class OperatorService {
 
-    AbstractOperator operator;
+    private AbstractOperator operator;
 
-    public void applyOperator(Solution solution) {
-        List<Solution> neighbours = operator.getNeighbours(solution);
+    private RandomSolutionGenerator randomSolutionGenerator;
+
+    public void applyOperator(Root root) {
+        Solution randomSolution = randomSolutionGenerator.generate(root);
+        DataSender.sendSolutionToFront(randomSolution);
+        List<Solution> neighbours = operator.getNeighbours(randomSolution);
         Solution bestSolution = neighbours.stream().max(Comparator.comparing(Solution::fitness)).orElseThrow(() -> new RuntimeException("Cannot find best solution"));
         DataSender.sendSolutionToFront(bestSolution);
     }
