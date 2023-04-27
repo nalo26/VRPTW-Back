@@ -24,12 +24,15 @@ public class Camion {
 
     public boolean addClient(Client client, Root root) {
         boolean isFittingQuantity = route.stream().map(Client::getDemand).reduce(0, Integer::sum) + client.getDemand() <= root.getHeaders().getMaxQuantity();
-        //La somme des `due_time` des clients en enlevant les dépôts doit être inférieur au `due_time` du dépôt.
-        boolean isFittingTime = route.stream().map(Client::getDue_time).reduce(0, Integer::sum) + client.getDue_time() - (2 * route.getFirst().getDue_time()) <= route.getFirst().getDue_time();
-        boolean canAdd = isFittingQuantity && isFittingTime;
+        LinkedList<Client> routeClone = new LinkedList<>(route);
+        routeClone.add(route.size() - 1, client);
+        int newDistance = Utils.getDistance(routeClone);
+        boolean isFittingDistance = newDistance <= route.getFirst().getDue_time();
+        //TODO Verifier les fenetres de temps (ready_time + due_time client)
+        boolean canAdd = isFittingQuantity && isFittingDistance;
         if (canAdd) {
             route.add(route.size() - 1, client);
-            distance = Utils.getDistance(route);
+            distance = newDistance;
         }
         return canAdd;
     }
