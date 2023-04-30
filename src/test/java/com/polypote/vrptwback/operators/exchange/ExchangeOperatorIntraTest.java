@@ -1,4 +1,4 @@
-package com.polypote.vrptwback.operators;
+package com.polypote.vrptwback.operators.exchange;
 
 import com.polypote.vrptwback.model.Camion;
 import com.polypote.vrptwback.model.Client;
@@ -13,13 +13,13 @@ import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-class ExchangeOperatorTest {
+class ExchangeOperatorIntraTest {
 
     @Test
     void should_exchange_a_solution_with_two_clients() {
         Solution givenSolution = given_a_solution_with_two_clients();
         List<Solution> expectedResult = get_expected_result_for_two_clients();
-        ExchangeOperator operator = new ExchangeOperator();
+        ExchangeOperatorIntra operator = new ExchangeOperatorIntra();
 
         List<Solution> result = operator.getNeighbours(givenSolution);
 
@@ -31,7 +31,7 @@ class ExchangeOperatorTest {
         Solution givenSolution = given_a_solution_with_three_clients();
         List<Solution> expectedResult = get_expected_result_for_three_clients();
 
-        ExchangeOperator operator = new ExchangeOperator();
+        ExchangeOperatorIntra operator = new ExchangeOperatorIntra();
 
         List<Solution> result = operator.getNeighbours(givenSolution);
 

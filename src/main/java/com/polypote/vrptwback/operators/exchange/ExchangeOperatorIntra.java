@@ -1,9 +1,10 @@
-package com.polypote.vrptwback.operators;
+package com.polypote.vrptwback.operators.exchange;
 
 import com.polypote.vrptwback.Utils;
 import com.polypote.vrptwback.model.Camion;
 import com.polypote.vrptwback.model.Client;
 import com.polypote.vrptwback.model.Solution;
+import com.polypote.vrptwback.operators.AbstractOperator;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Component
-public class ExchangeOperator extends AbstractOperator {
+public class ExchangeOperatorIntra extends AbstractOperator {
 
     private void parseRoute(Solution solution, List<Solution> result, int routeIterator, LinkedList<Camion> newRoutes, Camion currentCamion, LinkedList<Client> currentRoutes) {
         for (int clientIterator1 = 1; clientIterator1 < currentRoutes.size() - 1; clientIterator1++) {
