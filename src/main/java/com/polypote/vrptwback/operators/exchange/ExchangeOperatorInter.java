@@ -7,11 +7,13 @@ import com.polypote.vrptwback.model.Solution;
 import com.polypote.vrptwback.operators.AbstractOperator;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+@Component
 public class ExchangeOperatorInter extends AbstractOperator {
     @Override
     public List<Solution> getNeighbours(Solution solution) {
