@@ -27,23 +27,27 @@ public class ExchangeOperatorInter extends AbstractOperator {
 
                 final LinkedList<Client> clientList1 = route1.getRoute();
                 final LinkedList<Client> clientList2 = route2.getRoute();
-                for (int clientIterator1 = 1; clientIterator1 < clientList1.size() - 1; clientIterator1++) {
-                    for (int clientIterator2 = 1; clientIterator2 < clientList2.size() - 1; clientIterator2++) {
-                        Pair<Camion, Camion> exchangedCamion = exchange(clientIterator1, clientIterator2, clientList1, clientList2, route1.getDistance(), route2.getDistance());
-
-                        newRoutes.set(routeIterator1, exchangedCamion.getLeft());
-                        newRoutes.set(routeIterator2, exchangedCamion.getRight());
-
-                        Solution newSolution = Solution.builder().routes(newRoutes).fitness(Utils.getFitness(newRoutes)).build();
-                        if (!result.contains(newSolution)) {
-                            result.add(newSolution);
-                        }
-                        newRoutes = new LinkedList<>(solution.routes());
-                    }
-                }
+                parseClients(solution, result, routeIterator1, routeIterator2, newRoutes, route1, route2, clientList1, clientList2);
             }
         }
         return result;
+    }
+
+    private void parseClients(Solution solution, List<Solution> result, int routeIterator1, int routeIterator2, LinkedList<Camion> newRoutes, Camion route1, Camion route2, LinkedList<Client> clientList1, LinkedList<Client> clientList2) {
+        for (int clientIterator1 = 1; clientIterator1 < clientList1.size() - 1; clientIterator1++) {
+            for (int clientIterator2 = 1; clientIterator2 < clientList2.size() - 1; clientIterator2++) {
+                Pair<Camion, Camion> exchangedCamion = exchange(clientIterator1, clientIterator2, clientList1, clientList2, route1.getDistance(), route2.getDistance());
+
+                newRoutes.set(routeIterator1, exchangedCamion.getLeft());
+                newRoutes.set(routeIterator2, exchangedCamion.getRight());
+
+                Solution newSolution = Solution.builder().routes(newRoutes).fitness(Utils.getFitness(newRoutes)).build();
+                if (!result.contains(newSolution)) {
+                    result.add(newSolution);
+                }
+                newRoutes = new LinkedList<>(solution.routes());
+            }
+        }
     }
 
     private Pair<Camion, Camion> exchange(int clientIterator1, int clientIterator2, LinkedList<Client> clientList1, LinkedList<Client> clientList2, int route1Distance, int route2Distance) {
