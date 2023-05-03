@@ -7,12 +7,14 @@ import com.polypote.vrptwback.model.Solution;
 import com.polypote.vrptwback.operators.Abstractions.InterOperator;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.List;
 
 @Component
+@Primary
 public class InterExchangeOperator extends InterOperator {
     @Override
     protected void parseClients(Solution solution, List<Solution> result, int routeIterator1, int routeIterator2, LinkedList<Camion> newRoutes, Camion route1, Camion route2, LinkedList<Client> clientList1, LinkedList<Client> clientList2) {
