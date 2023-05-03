@@ -14,7 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Component
-public class ExchangeOperatorInter extends AbstractOperator {
+public class InterExchangeOperator extends AbstractOperator {
     @Override
     public List<Solution> getNeighbours(Solution solution) {
         List<Solution> result = new ArrayList<>();

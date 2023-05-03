@@ -13,13 +13,13 @@ import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-class ExchangeOperatorIntraTest {
+class IntraExchangeOperatorTest {
 
     @Test
     void should_exchange_a_solution_with_two_clients() {
         Solution givenSolution = given_a_solution_with_two_clients();
         List<Solution> expectedResult = get_expected_result_for_two_clients();
-        ExchangeOperatorIntra operator = new ExchangeOperatorIntra();
+        IntraExchangeOperator operator = new IntraExchangeOperator();
 
         List<Solution> result = operator.getNeighbours(givenSolution);
 
@@ -31,7 +31,7 @@ class ExchangeOperatorIntraTest {
         Solution givenSolution = given_a_solution_with_three_clients();
         List<Solution> expectedResult = get_expected_result_for_three_clients();
 
-        ExchangeOperatorIntra operator = new ExchangeOperatorIntra();
+        IntraExchangeOperator operator = new IntraExchangeOperator();
 
         List<Solution> result = operator.getNeighbours(givenSolution);
 

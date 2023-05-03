@@ -12,7 +12,7 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ExchangeOperatorInterTest {
+class InterExchangeOperatorTest {
 
 
     @Test
@@ -20,9 +20,9 @@ class ExchangeOperatorInterTest {
         Solution solutionWithTwoCamionAndTwoClients = given_a_solution_with_two_routes_and_two_clients();
         List<Solution> expectedResult = given_a_solution_with_two_routes_and_two_clients_reversed();
 
-        ExchangeOperatorInter exchangeOperatorInter = new ExchangeOperatorInter();
+        InterExchangeOperator interExchangeOperator = new InterExchangeOperator();
 
-        List<Solution> result = exchangeOperatorInter.getNeighbours(solutionWithTwoCamionAndTwoClients);
+        List<Solution> result = interExchangeOperator.getNeighbours(solutionWithTwoCamionAndTwoClients);
 
 
         assertThat(result).usingRecursiveComparison().isEqualTo(expectedResult);
@@ -33,9 +33,9 @@ class ExchangeOperatorInterTest {
         Solution solutionWithTwoCamionAndThreeClients = given_a_solution_with_three_clients_and_two_camions();
         List<Solution> expectedResult = given_two_solutions_with_exchanged_clients();
 
-        ExchangeOperatorInter exchangeOperatorInter = new ExchangeOperatorInter();
+        InterExchangeOperator interExchangeOperator = new InterExchangeOperator();
 
-        List<Solution> result = exchangeOperatorInter.getNeighbours(solutionWithTwoCamionAndThreeClients);
+        List<Solution> result = interExchangeOperator.getNeighbours(solutionWithTwoCamionAndThreeClients);
 
         assertThat(result).usingRecursiveComparison().isEqualTo(expectedResult);
     }

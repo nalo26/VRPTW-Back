@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Component
-public class ExchangeOperatorIntra extends AbstractOperator {
+public class IntraExchangeOperator extends AbstractOperator {
 
     private void parseRoute(Solution solution, List<Solution> result, int routeIterator, LinkedList<Camion> newRoutes, Camion currentCamion, LinkedList<Client> currentRoutes) {
         for (int clientIterator1 = 1; clientIterator1 < currentRoutes.size() - 1; clientIterator1++) {
