@@ -1,6 +1,7 @@
 package com.polypote.vrptwback.operators;
 
 
+import com.polypote.vrptwback.operators.Abstractions.Operator;
 import com.polypote.vrptwback.operators.exchange.InterExchangeOperator;
 import com.polypote.vrptwback.operators.exchange.IntraExchangeOperator;
 import com.polypote.vrptwback.operators.relocate.IntraRelocateOperator;
@@ -15,9 +16,9 @@ import java.util.Map;
 @Component
 public class OperatorFactory {
 
-    private Map<Pair<String, String>, AbstractOperator> operatorMap;
+    private Map<Pair<String, String>, Operator> operatorMap;
 
-    public AbstractOperator createOperator(String operatorName, String type) {
+    public Operator createOperator(String operatorName, String type) {
         return operatorMap.get(new ImmutablePair<>(operatorName, type));
     }
 

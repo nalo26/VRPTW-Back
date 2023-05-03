@@ -4,38 +4,18 @@ import com.polypote.vrptwback.Utils;
 import com.polypote.vrptwback.model.Camion;
 import com.polypote.vrptwback.model.Client;
 import com.polypote.vrptwback.model.Solution;
-import com.polypote.vrptwback.operators.AbstractOperator;
+import com.polypote.vrptwback.operators.Abstractions.InterOperator;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 @Component
-public class InterExchangeOperator extends AbstractOperator {
+public class InterExchangeOperator extends InterOperator {
     @Override
-    public List<Solution> getNeighbours(Solution solution) {
-        List<Solution> result = new ArrayList<>();
-        for (int routeIterator1 = 0; routeIterator1 < solution.routes().size(); routeIterator1++) {
-            for (int routeIterator2 = 0; routeIterator2 < solution.routes().size(); routeIterator2++) {
-                if (routeIterator1 == routeIterator2) {
-                    continue;
-                }
-                LinkedList<Camion> newRoutes = new LinkedList<>(solution.routes());
-                Camion route1 = solution.routes().get(routeIterator1);
-                Camion route2 = solution.routes().get(routeIterator2);
-
-                final LinkedList<Client> clientList1 = route1.getRoute();
-                final LinkedList<Client> clientList2 = route2.getRoute();
-                parseClients(solution, result, routeIterator1, routeIterator2, newRoutes, route1, route2, clientList1, clientList2);
-            }
-        }
-        return result;
-    }
-
-    private void parseClients(Solution solution, List<Solution> result, int routeIterator1, int routeIterator2, LinkedList<Camion> newRoutes, Camion route1, Camion route2, LinkedList<Client> clientList1, LinkedList<Client> clientList2) {
+    protected void parseClients(Solution solution, List<Solution> result, int routeIterator1, int routeIterator2, LinkedList<Camion> newRoutes, Camion route1, Camion route2, LinkedList<Client> clientList1, LinkedList<Client> clientList2) {
         for (int clientIterator1 = 1; clientIterator1 < clientList1.size() - 1; clientIterator1++) {
             for (int clientIterator2 = 1; clientIterator2 < clientList2.size() - 1; clientIterator2++) {
                 Pair<Camion, Camion> exchangedCamion = exchange(clientIterator1, clientIterator2, clientList1, clientList2, route1.getDistance(), route2.getDistance());

@@ -4,7 +4,7 @@ import com.polypote.vrptwback.client.DataSender;
 import com.polypote.vrptwback.generator.RandomSolutionGenerator;
 import com.polypote.vrptwback.model.Root;
 import com.polypote.vrptwback.model.Solution;
-import com.polypote.vrptwback.operators.AbstractOperator;
+import com.polypote.vrptwback.operators.Abstractions.Operator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class OperatorService {
 
-    private AbstractOperator operator;
+    private Operator operator;
 
     private RandomSolutionGenerator randomSolutionGenerator;
 
