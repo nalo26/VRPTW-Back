@@ -4,6 +4,7 @@ package com.polypote.vrptwback.operators;
 import com.polypote.vrptwback.operators.Abstractions.Operator;
 import com.polypote.vrptwback.operators.exchange.InterExchangeOperator;
 import com.polypote.vrptwback.operators.exchange.IntraExchangeOperator;
+import com.polypote.vrptwback.operators.relocate.InterRelocateOperator;
 import com.polypote.vrptwback.operators.relocate.IntraRelocateOperator;
 import jakarta.annotation.PostConstruct;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -28,6 +29,7 @@ public class OperatorFactory {
             put(new ImmutablePair<>("exchange", "intra"), new IntraExchangeOperator());
             put(new ImmutablePair<>("exchange", "inter"), new InterExchangeOperator());
             put(new ImmutablePair<>("relocate", "intra"), new IntraRelocateOperator());
+            put(new ImmutablePair<>("relocate", "inter"), new InterRelocateOperator());
         }};
 
     }
