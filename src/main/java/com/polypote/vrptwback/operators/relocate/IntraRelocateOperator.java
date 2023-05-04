@@ -12,7 +12,7 @@ import java.util.List;
 
 @Component
 public class IntraRelocateOperator extends IntraOperator {
-    private static Camion relocate(LinkedList<Client> clonedRoutes, int clientIterator1, int clientIterator2) {
+    private Camion relocate(LinkedList<Client> clonedRoutes, int clientIterator1, int clientIterator2) {
         Client currentClient = clonedRoutes.remove(clientIterator1);
 
         clonedRoutes.add(clientIterator2, currentClient);

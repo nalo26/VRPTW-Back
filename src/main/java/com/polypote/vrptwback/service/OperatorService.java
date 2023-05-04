@@ -19,12 +19,26 @@ public class OperatorService {
 
     private RandomSolutionGenerator randomSolutionGenerator;
 
+    private static Solution getBestSolution(List<Solution> neighbours) {
+        return neighbours.stream().min(Comparator.comparing(Solution::fitness)).orElseThrow(() -> new RuntimeException("Cannot find best solution"));
+    }
+
     public void applyOperator(Root root) {
         Solution randomSolution = randomSolutionGenerator.generate(root);
         DataSender.sendSolutionToFront(randomSolution);
         List<Solution> neighbours = operator.getNeighbours(randomSolution);
-        Solution bestSolution = neighbours.stream().max(Comparator.comparing(Solution::fitness)).orElseThrow(() -> new RuntimeException("Cannot find best solution"));
-        DataSender.sendSolutionToFront(bestSolution);
+        Solution bestSolution;
+        int previousFitness = Integer.MAX_VALUE;
+        int fitness = randomSolution.fitness();
+        while (previousFitness > fitness) {
+            bestSolution = getBestSolution(neighbours);
+            previousFitness = bestSolution.fitness();
+            neighbours = operator.getNeighbours(bestSolution);
+            bestSolution = getBestSolution(neighbours);
+            fitness = bestSolution.fitness();
+            DataSender.sendSolutionToFront(bestSolution);
+        }
+        System.out.println("Everyone is relocated");
     }
 
 }
