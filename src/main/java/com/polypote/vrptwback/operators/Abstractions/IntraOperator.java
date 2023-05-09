@@ -1,5 +1,6 @@
 package com.polypote.vrptwback.operators.Abstractions;
 
+import com.polypote.vrptwback.Utils;
 import com.polypote.vrptwback.model.Camion;
 import com.polypote.vrptwback.model.Client;
 import com.polypote.vrptwback.model.Solution;
@@ -22,4 +23,12 @@ public abstract class IntraOperator implements Operator {
     }
 
     protected abstract void parseRoute(Solution solution, List<Solution> result, int routeIterator, LinkedList<Camion> newRoutes, Camion currentCamion, LinkedList<Client> currentRoutes);
+
+    protected void addToResult(List<Solution> result, int routeIterator, LinkedList<Camion> newRoutes, Camion newCamion) {
+        newRoutes.set(routeIterator, newCamion);
+        Solution newSolution = Solution.builder().routes(newRoutes).fitness(Utils.getFitness(newRoutes)).build();
+        if (!result.contains(newSolution)) {
+            result.add(newSolution);
+        }
+    }
 }

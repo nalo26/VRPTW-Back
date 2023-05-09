@@ -22,11 +22,7 @@ public class IntraExchangeOperator extends IntraOperator {
                 }
                 Camion newCamion = exchangeRoutes(currentCamion, currentRoutes, clientIterator1, clientIterator2);
 
-                newRoutes.set(routeIterator, newCamion);
-                Solution newSolution = Solution.builder().routes(newRoutes).fitness(Utils.getFitness(newRoutes)).build();
-                if (!result.contains(newSolution)) {
-                    result.add(newSolution);
-                }
+                addToResult(result, routeIterator, newRoutes, newCamion);
                 newRoutes = new LinkedList<>(solution.routes());
             }
         }

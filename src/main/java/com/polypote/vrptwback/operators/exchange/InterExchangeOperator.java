@@ -25,10 +25,7 @@ public class InterExchangeOperator extends InterOperator {
                 newRoutes.set(routeIterator1, exchangedCamion.getLeft());
                 newRoutes.set(routeIterator2, exchangedCamion.getRight());
 
-                Solution newSolution = Solution.builder().routes(newRoutes).fitness(Utils.getFitness(newRoutes)).build();
-                if (!result.contains(newSolution)) {
-                    result.add(newSolution);
-                }
+                addToResult(result, newRoutes);
                 newRoutes = new LinkedList<>(solution.routes());
             }
         }

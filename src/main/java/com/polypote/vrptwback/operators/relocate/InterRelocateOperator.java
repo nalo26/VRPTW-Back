@@ -27,10 +27,7 @@ public class InterRelocateOperator extends InterOperator {
 
                 clonedRoute1 = new LinkedList<>(clientList1);
                 clonedRoute2 = new LinkedList<>(clientList2);
-                Solution newSolution = Solution.builder().routes(newRoutes).fitness(Utils.getFitness(newRoutes)).build();
-                if (!result.contains(newSolution)) {
-                    result.add(newSolution);
-                }
+                addToResult(result, newRoutes);
                 newRoutes = new LinkedList<>(solution.routes());
             }
         }
