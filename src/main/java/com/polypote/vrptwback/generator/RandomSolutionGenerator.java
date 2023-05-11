@@ -10,12 +10,9 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 @Component
 public class RandomSolutionGenerator extends AbstractGenerator {
-
-    private final Random random = new Random();
 
     public Solution generate(final Root root) {
         final List<Camion> result = new ArrayList<>();
