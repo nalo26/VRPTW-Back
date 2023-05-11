@@ -18,7 +18,7 @@ public class DataSender {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     public static void sendSolutionToFront(Solution solution) {
-        HttpPost httpPost = new HttpPost(FRONT_URL + "/update_graph");
+        HttpPost httpPost = new HttpPost(FRONT_URL + "/back/update_graph");
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
             String requestBody = objectMapper.writeValueAsString(solution);
             StringEntity stringEntity = new StringEntity(requestBody);
