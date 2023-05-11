@@ -1,13 +1,11 @@
 package com.polypote.vrptwback.operators.exchange;
 
-import com.polypote.vrptwback.model.Camion;
-import com.polypote.vrptwback.model.Client;
 import com.polypote.vrptwback.model.Solution;
 import org.junit.jupiter.api.Test;
 
-import java.util.LinkedList;
 import java.util.List;
 
+import static com.polypote.vrptwback.operators.OperatorsTestUtils.*;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,266 +39,79 @@ class InterExchangeOperatorTest {
     }
 
     private List<Solution> given_two_solutions_with_exchanged_clients() {
-        return asList(Solution.builder()
-                        .routes(asList(
-                                Camion.builder()
-                                        .route(new LinkedList<>(asList(
-                                                Client.builder()
-                                                        .id_name("d1")
-                                                        .x(0)
-                                                        .y(0)
-                                                        .build(),
-                                                Client.builder()
-                                                        .id_name("c3")
-                                                        .x(0)
-                                                        .y(50)
-                                                        .build(),
-                                                Client.builder()
-                                                        .id_name("c2")
-                                                        .x(0)
-                                                        .y(20)
-                                                        .build(),
-                                                Client.builder()
-                                                        .id_name("d1")
-                                                        .x(0)
-                                                        .y(0)
-                                                        .build()
-                                        )
-                                        ))
-                                        .distance(100)
-                                        .build(),
-                                Camion.builder()
-                                        .route(new LinkedList<>(asList(
-                                                Client.builder()
-                                                        .id_name("d1")
-                                                        .x(0)
-                                                        .y(0)
-                                                        .build(),
-                                                Client.builder()
-                                                        .id_name("c1")
-                                                        .x(0)
-                                                        .y(10)
-                                                        .build(),
-                                                Client.builder()
-                                                        .id_name("d1")
-                                                        .x(0)
-                                                        .y(0)
-                                                        .build()
-                                        )
-                                        ))
-                                        .distance(20)
-                                        .build()
-                        ))
-                        .fitness(120)
-                        .build(),
-                Solution.builder()
-                        .routes(asList(
-                                Camion.builder()
-                                        .route(new LinkedList<>(asList(
-                                                Client.builder()
-                                                        .id_name("d1")
-                                                        .x(0)
-                                                        .y(0)
-                                                        .build(),
-                                                Client.builder()
-                                                        .id_name("c1")
-                                                        .x(0)
-                                                        .y(10)
-                                                        .build(),
-                                                Client.builder()
-                                                        .id_name("c3")
-                                                        .x(0)
-                                                        .y(50)
-                                                        .build(),
-                                                Client.builder()
-                                                        .id_name("d1")
-                                                        .x(0)
-                                                        .y(0)
-                                                        .build()
-                                        )
-                                        ))
-                                        .distance(100)
-                                        .build(),
-                                Camion.builder()
-                                        .route(new LinkedList<>(asList(
-                                                Client.builder()
-                                                        .id_name("d1")
-                                                        .x(0)
-                                                        .y(0)
-                                                        .build(),
-
-                                                Client.builder()
-                                                        .id_name("c2")
-                                                        .x(0)
-                                                        .y(20)
-                                                        .build(),
-                                                Client.builder()
-                                                        .id_name("d1")
-                                                        .x(0)
-                                                        .y(0)
-                                                        .build()
-                                        )
-                                        ))
-                                        .distance(40)
-                                        .build()
-                        ))
-                        .fitness(140)
-                        .build());
+        return asList(createInterSolution(asList(
+                        createCamion(asList(
+                                createClient("d1", 0, 0),
+                                createClient("c3", 0, 50),
+                                createClient("c2", 0, 20),
+                                createClient("d1", 0, 0)
+                        ), 100),
+                        createCamion(asList(
+                                createClient("d1", 0, 0),
+                                createClient("c1", 0, 10),
+                                createClient("d1", 0, 0)
+                        ), 20)
+                ), 120),
+                createInterSolution(asList(
+                        createCamion(asList(
+                                createClient("d1", 0, 0),
+                                createClient("c1", 0, 10),
+                                createClient("c3", 0, 50),
+                                createClient("d1", 0, 0)
+                        ), 100),
+                        createCamion(asList(
+                                createClient("d1", 0, 0),
+                                createClient("c2", 0, 20),
+                                createClient("d1", 0, 0)
+                        ), 40)
+                ), 140));
     }
 
     private Solution given_a_solution_with_three_clients_and_two_camions() {
-        return Solution.builder()
-                .routes(asList(
-                        Camion.builder()
-                                .route(new LinkedList<>(asList(
-                                        Client.builder()
-                                                .id_name("d1")
-                                                .x(0)
-                                                .y(0)
-                                                .build(),
-                                        Client.builder()
-                                                .id_name("c1")
-                                                .x(0)
-                                                .y(10)
-                                                .build(),
-                                        Client.builder()
-                                                .id_name("c2")
-                                                .x(0)
-                                                .y(20)
-                                                .build(),
-                                        Client.builder()
-                                                .id_name("d1")
-                                                .x(0)
-                                                .y(0)
-                                                .build()
-                                )
-                                ))
-                                .distance(60)
-                                .build(),
-                        Camion.builder()
-                                .route(new LinkedList<>(asList(
-                                        Client.builder()
-                                                .id_name("d1")
-                                                .x(0)
-                                                .y(0)
-                                                .build(),
-                                        Client.builder()
-                                                .id_name("c3")
-                                                .x(0)
-                                                .y(50)
-                                                .build(),
-                                        Client.builder()
-                                                .id_name("d1")
-                                                .x(0)
-                                                .y(0)
-                                                .build()
-                                )
-                                ))
-                                .distance(100)
-                                .build()
-                ))
-                .fitness(160)
-                .build();
+        return createInterSolution(asList(
+                createCamion(asList(
+                        createClient("d1", 0, 0),
+                        createClient("c1", 0, 10),
+                        createClient("c2", 0, 20),
+                        createClient("d1", 0, 0)
+
+                ), 60),
+                createCamion(asList(
+                        createClient("d1", 0, 0),
+                        createClient("c3", 0, 50),
+                        createClient("d1", 0, 0)
+                ), 100)
+        ), 160);
     }
 
     private List<Solution> given_a_solution_with_two_routes_and_two_clients_reversed() {
-        return singletonList(Solution.builder()
-                .routes(asList(
-                        Camion.builder()
-                                .route(new LinkedList<>(asList(
-                                        Client.builder()
-                                                .id_name("d1")
-                                                .x(0)
-                                                .y(0)
-                                                .build(),
-                                        Client.builder()
-                                                .id_name("c2")
-                                                .x(0)
-                                                .y(10)
-                                                .build(),
-                                        Client.builder()
-                                                .id_name("d1")
-                                                .x(0)
-                                                .y(0)
-                                                .build()
-                                )
-                                ))
-                                .distance(20)
-                                .build(),
-                        Camion.builder()
-                                .route(new LinkedList<>(asList(
-                                        Client.builder()
-                                                .id_name("d1")
-                                                .x(0)
-                                                .y(0)
-                                                .build(),
-                                        Client.builder()
-                                                .id_name("c1")
-                                                .x(10)
-                                                .y(0)
-                                                .build(),
-                                        Client.builder()
-                                                .id_name("d1")
-                                                .x(0)
-                                                .y(0)
-                                                .build()
-                                )
-                                ))
-                                .distance(20)
-                                .build()
-                ))
-                .fitness(40)
-                .build());
+        return singletonList(createInterSolution(asList(
+                createCamion(asList(
+                        createClient("d1", 0, 0),
+                        createClient("c2", 0, 10),
+                        createClient("d1", 0, 0)
+                ), 20),
+                createCamion(asList(
+                        createClient("d1", 0, 0),
+                        createClient("c1", 10, 0),
+                        createClient("d1", 0, 0)
+                ), 20)
+        ), 40));
     }
 
     public Solution given_a_solution_with_two_routes_and_two_clients() {
-        return Solution.builder()
-                .routes(asList(
-                        Camion.builder()
-                                .route(new LinkedList<>(asList(
-                                        Client.builder()
-                                                .id_name("d1")
-                                                .x(0)
-                                                .y(0)
-                                                .build(),
-                                        Client.builder()
-                                                .id_name("c1")
-                                                .x(10)
-                                                .y(0)
-                                                .build(),
-                                        Client.builder()
-                                                .id_name("d1")
-                                                .x(0)
-                                                .y(0)
-                                                .build()
-                                )
-                                ))
-                                .distance(10)
-                                .build(),
-                        Camion.builder()
-                                .route(new LinkedList<>(asList(
-                                        Client.builder()
-                                                .id_name("d1")
-                                                .x(0)
-                                                .y(0)
-                                                .build(),
-                                        Client.builder()
-                                                .id_name("c2")
-                                                .x(0)
-                                                .y(10)
-                                                .build(),
-                                        Client.builder()
-                                                .id_name("d1")
-                                                .x(0)
-                                                .y(0)
-                                                .build()
-                                )
-                                ))
-                                .distance(10)
-                                .build()
-                ))
-                .fitness(20)
-                .build();
+        return createInterSolution(asList(
+                createCamion(asList(
+                        createClient("d1", 0, 0),
+                        createClient("c1", 10, 0),
+                        createClient("d1", 0, 0)
+                ), 10),
+                createCamion(asList(
+                        createClient("d1", 0, 0),
+                        createClient("c2", 0, 10),
+                        createClient("d1", 0, 0)
+                ), 10)
+        ), 20);
     }
 
 }
