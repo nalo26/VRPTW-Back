@@ -6,6 +6,7 @@ import com.polypote.vrptwback.operators.exchange.InterExchangeOperator;
 import com.polypote.vrptwback.operators.exchange.IntraExchangeOperator;
 import com.polypote.vrptwback.operators.relocate.InterRelocateOperator;
 import com.polypote.vrptwback.operators.relocate.IntraRelocateOperator;
+import com.polypote.vrptwback.operators.twoOpt.IntraTwoOptOperator;
 import jakarta.annotation.PostConstruct;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -26,6 +27,7 @@ public class OperatorFactory {
     public static OperatorFactory getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new OperatorFactory();
+            INSTANCE.fillMap();
         }
         return INSTANCE;
     }
@@ -41,6 +43,7 @@ public class OperatorFactory {
             put(new ImmutablePair<>("exchange", "inter"), new InterExchangeOperator());
             put(new ImmutablePair<>("relocate", "intra"), new IntraRelocateOperator());
             put(new ImmutablePair<>("relocate", "inter"), new InterRelocateOperator());
+            put(new ImmutablePair<>("twoOpt", "intra"), new IntraTwoOptOperator());
         }};
 
     }
