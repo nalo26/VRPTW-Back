@@ -10,10 +10,7 @@ import com.polypote.vrptwback.service.RandomSolutionService;
 import com.polypote.vrptwback.service.TabouAlgorithmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -43,10 +40,11 @@ public class MainController {
     }
 
     @PostMapping("/tabouSearch")
-    public ResponseEntity<Void> tabouSearch(@RequestBody Root root) {
+    public ResponseEntity<Void> tabouSearch(@RequestBody Root root, @RequestParam int nbIter, @RequestParam int tabouSize) {
         //operatorService = new OperatorService(operatorFactory.createOperator(root.getMethods(), randomSolutionGenerator));
         List<Operator> operatorList = Utils.fromStringList(root.getMethods());
         tabouAlgorithmService = new TabouAlgorithmService(operatorList, randomSolutionGenerator);
+        new Thread(() -> tabouAlgorithmService.callTabouSearch(root, nbIter, tabouSize)).start();
         return ResponseEntity.ok(null);
     }
 }
