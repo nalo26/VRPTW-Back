@@ -16,4 +16,7 @@ public class Root {
 
     @JsonProperty("clients")
     List<Client> clients;
+
+    @JsonProperty("methods")
+    List<String> methods;
 }

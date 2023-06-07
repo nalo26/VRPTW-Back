@@ -1,16 +1,21 @@
 package com.polypote.vrptwback.controller;
 
+import com.polypote.vrptwback.Utils;
 import com.polypote.vrptwback.generator.RandomSolutionGenerator;
 import com.polypote.vrptwback.model.Root;
+import com.polypote.vrptwback.operators.Abstractions.Operator;
 import com.polypote.vrptwback.operators.OperatorFactory;
 import com.polypote.vrptwback.service.OperatorService;
 import com.polypote.vrptwback.service.RandomSolutionService;
+import com.polypote.vrptwback.service.TabouAlgorithmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class MainController {
@@ -19,11 +24,10 @@ public class MainController {
     private RandomSolutionService randomSolutionService;
 
     @Autowired
-    private OperatorFactory operatorFactory;
-
-    @Autowired
     private RandomSolutionGenerator randomSolutionGenerator;
     private OperatorService operatorService;
+
+    private TabouAlgorithmService tabouAlgorithmService;
 
     @PostMapping("/random")
     public ResponseEntity<Void> generateRandomSolution(@RequestBody Root root) {
@@ -33,8 +37,16 @@ public class MainController {
 
     @PostMapping("/{operator}/{type}")
     public ResponseEntity<Void> applyIntraExchangeOperator(@PathVariable String operator, @PathVariable String type, @RequestBody Root root) {
-        operatorService = new OperatorService(operatorFactory.createOperator(operator, type), randomSolutionGenerator);
+        operatorService = new OperatorService(OperatorFactory.getInstance().createOperator(operator, type), randomSolutionGenerator);
         new Thread(() -> operatorService.applyOperator(root)).start();
+        return ResponseEntity.ok(null);
+    }
+
+    @PostMapping("/tabouSearch")
+    public ResponseEntity<Void> tabouSearch(@RequestBody Root root) {
+        //operatorService = new OperatorService(operatorFactory.createOperator(root.getMethods(), randomSolutionGenerator));
+        List<Operator> operatorList = Utils.fromStringList(root.getMethods());
+        tabouAlgorithmService = new TabouAlgorithmService(operatorList, randomSolutionGenerator);
         return ResponseEntity.ok(null);
     }
 }

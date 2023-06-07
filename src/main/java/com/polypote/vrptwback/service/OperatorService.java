@@ -8,8 +8,9 @@ import com.polypote.vrptwback.operators.Abstractions.Operator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
 import java.util.List;
+
+import static com.polypote.vrptwback.Utils.getBestSolution;
 
 @AllArgsConstructor
 @Service
@@ -18,10 +19,6 @@ public class OperatorService {
     private Operator operator;
 
     private RandomSolutionGenerator randomSolutionGenerator;
-
-    private static Solution getBestSolution(List<Solution> neighbours) {
-        return neighbours.stream().min(Comparator.comparing(Solution::fitness)).orElseThrow(() -> new RuntimeException("Cannot find best solution"));
-    }
 
     public void applyOperator(Root root) {
         Solution randomSolution = randomSolutionGenerator.generate(root);

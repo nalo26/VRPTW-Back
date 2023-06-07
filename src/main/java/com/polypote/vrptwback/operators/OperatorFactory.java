@@ -17,7 +17,18 @@ import java.util.Map;
 @Component
 public class OperatorFactory {
 
+    private static OperatorFactory INSTANCE;
     private Map<Pair<String, String>, Operator> operatorMap;
+
+    private OperatorFactory() {
+    }
+
+    public static OperatorFactory getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new OperatorFactory();
+        }
+        return INSTANCE;
+    }
 
     public Operator createOperator(String operatorName, String type) {
         return operatorMap.get(new ImmutablePair<>(operatorName, type));
