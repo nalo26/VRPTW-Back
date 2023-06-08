@@ -32,7 +32,6 @@ class TabouSearchAlgorithmTest {
                 createClient("c4", 15, 5),
                 createClient("c3", 5, 2),
                 createClient("d1", 0, 0)
-
         ), 60);
     }
 
@@ -45,7 +44,6 @@ class TabouSearchAlgorithmTest {
                 createClient("c2", 20, 20),
                 createClient("c3", 5, 2),
                 createClient("d1", 0, 0)
-
         ), 60);
     }
 

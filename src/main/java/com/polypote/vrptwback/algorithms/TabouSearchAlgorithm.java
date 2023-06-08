@@ -1,5 +1,6 @@
 package com.polypote.vrptwback.algorithms;
 
+import com.polypote.vrptwback.client.DataSender;
 import com.polypote.vrptwback.model.Solution;
 import com.polypote.vrptwback.operators.Abstractions.Operator;
 import lombok.AllArgsConstructor;
@@ -42,6 +43,7 @@ public class TabouSearchAlgorithm extends AbstractAlgorithm {
                 fMin = bestSolution.fitness();
             }
             xI = bestSolution;
+            DataSender.sendSolutionToFront(xI);
         }
         return xMin;
     }
