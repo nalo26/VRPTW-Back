@@ -43,21 +43,45 @@ class RandomSolutionGeneratorTest {
 
         Solution solution = generator.generate(root);
 
-        assertThat(solution.routes().get(0).getRoute()).containsExactlyInAnyOrderElementsOf(expectedSolution.routes().get(0).getRoute());
+        assertThat(solution).usingRecursiveComparison().isEqualTo(expectedSolution);
         assertThat(solution.fitness()).isEqualTo(expectedSolution.fitness());
     }
 
     private Solution given_a_solution_with_two_clients() {
         return Solution.builder()
                 .routes(of(new Camion(new LinkedList<>(
-                        of(
-                                Client.builder().id_name("c1")
+                                of(
+                                        Client.builder()
+                                                .id_name("d1")
+                                                .x(0)
+                                                .y(0)
+                                                .ready_time(0)
+                                                .due_time(230)
+                                                .build(),
+                                        Client.builder()
+                                                .id_name("c1")
+                                                .x(0)
+                                                .y(10)
+                                                .ready_time(161)
+                                                .due_time(171)
+                                                .demand(10)
+                                                .service(10)
+                                                .build(),
+                                        Client.builder()
+                                                .id_name("d1")
+                                                .x(0)
+                                                .y(0)
+                                                .ready_time(0)
+                                                .due_time(230)
+                                                .build()
+                                )), 20, 171),
+                        new Camion(new LinkedList<>(of(
+                                Client.builder()
+                                        .id_name("d1")
                                         .x(0)
-                                        .y(10)
-                                        .ready_time(161)
-                                        .due_time(171)
-                                        .demand(10)
-                                        .service(10)
+                                        .y(0)
+                                        .ready_time(0)
+                                        .due_time(230)
                                         .build(),
                                 Client.builder()
                                         .id_name("c2")
@@ -67,9 +91,17 @@ class RandomSolutionGeneratorTest {
                                         .due_time(60)
                                         .demand(7)
                                         .service(10)
-                                        .build())),
-                        30)))
-                .fitness(10)
+                                        .build(),
+                                Client.builder()
+                                        .id_name("d1")
+                                        .x(0)
+                                        .y(0)
+                                        .ready_time(0)
+                                        .due_time(230)
+                                        .build()
+                        )), 40, 60)
+                ))
+                .fitness(60)
                 .build();
     }
 
@@ -95,6 +127,13 @@ class RandomSolutionGeneratorTest {
                         .maxQuantity(200)
                         .build()))
                 .clients(asList(
+                        Client.builder()
+                                .id_name("d1")
+                                .x(0)
+                                .y(0)
+                                .ready_time(0)
+                                .due_time(230)
+                                .build(),
                         Client.builder()
                                 .id_name("c1")
                                 .x(0)
