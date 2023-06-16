@@ -44,7 +44,6 @@ public class MainController {
 
     @PostMapping("/tabouSearch")
     public ResponseEntity<Void> tabouSearch(@RequestBody Root root, @RequestParam int nbIter, @RequestParam int tabouSize) {
-        //operatorService = new OperatorService(operatorFactory.createOperator(root.getMethods(), randomSolutionGenerator));
         List<Operator> operatorList = Utils.fromStringList(root.getMethods());
         tabouAlgorithmService = new TabouAlgorithmService(operatorList, randomSolutionGenerator);
         new Thread(() -> tabouAlgorithmService.callTabouSearch(root, nbIter, tabouSize)).start();
