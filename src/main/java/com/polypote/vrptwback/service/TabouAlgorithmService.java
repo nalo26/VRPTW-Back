@@ -1,6 +1,7 @@
 package com.polypote.vrptwback.service;
 
 import com.polypote.vrptwback.algorithms.TabouSearchAlgorithm;
+import com.polypote.vrptwback.client.DataSender;
 import com.polypote.vrptwback.generator.RandomSolutionGenerator;
 import com.polypote.vrptwback.model.Root;
 import com.polypote.vrptwback.model.Solution;
@@ -24,5 +25,6 @@ public class TabouAlgorithmService {
         Solution randomSolution = randomSolutionGenerator.generate(root);
         TabouSearchAlgorithm tabouSearchAlgorithm = new TabouSearchAlgorithm(nbIter, operators, tabouSize);
         Solution result = tabouSearchAlgorithm.resolve(randomSolution);
+        DataSender.sendSolutionToFront(result);
     }
 }
