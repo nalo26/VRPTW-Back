@@ -35,7 +35,7 @@ public class OperatorService {
             fitness = bestSolution.fitness();
             DataSender.sendSolutionToFront(bestSolution);
         }
-        System.out.println("Everyone is relocated");
+        System.out.println("Done !");
     }
 
 }
