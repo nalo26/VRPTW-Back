@@ -26,6 +26,9 @@ public class SimulatedAnnealingAlgorithm {
         for (int k = 0; k < changesOfTemperatures; k++) {
             for (int l = 0; l < movesAtTemperatureTk; l++) {
                 List<Solution> neighbours = operatorList.get(random.nextInt(operatorList.size())).getNeighbours(xMin);
+                if (neighbours.size() == 0) {
+                    continue;
+                }
                 Solution randomChoice = neighbours.get(random.nextInt(neighbours.size()));
 
                 int neighboursFitness = randomChoice.fitness();

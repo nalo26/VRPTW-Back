@@ -24,6 +24,10 @@ public class OperatorService {
         Solution randomSolution = randomSolutionGenerator.generate(root);
         DataSender.sendSolutionToFront(randomSolution);
         List<Solution> neighbours = operator.getNeighbours(randomSolution);
+        if (neighbours.size() == 0) {
+            System.out.println("No neighbours for this solution  : " + randomSolution.toString());
+            return;
+        }
         Solution bestSolution;
         int previousFitness = Integer.MAX_VALUE;
         int fitness = randomSolution.fitness();
