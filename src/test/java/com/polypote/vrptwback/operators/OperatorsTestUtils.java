@@ -41,4 +41,15 @@ public class OperatorsTestUtils {
                 .y(y)
                 .build();
     }
+
+    public static Client createClient(String idName, int x, int y, int readyTime, int dueTime) {
+        return Client.builder()
+                .id_name(idName)
+                .x(x)
+                .y(y)
+                .due_time(dueTime)
+                .ready_time(readyTime)
+                .service(10)
+                .build();
+    }
 }

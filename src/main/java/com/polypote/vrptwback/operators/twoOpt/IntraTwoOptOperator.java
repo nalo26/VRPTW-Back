@@ -19,7 +19,12 @@ public class IntraTwoOptOperator extends IntraOperator {
                     continue;
                 }
                 Camion newCamion = towOpt(currentCamion, clonedRoutes, clientIterator1, clientIterator2);
+
                 clonedRoutes = new LinkedList<>(currentRoutes);
+                if (!checkRoute(newCamion)) {
+                    newRoutes = new LinkedList<>(solution.routes());
+                    continue;
+                }
                 addToResult(result, routeIterator, newRoutes, newCamion);
                 newRoutes = new LinkedList<>(solution.routes());
             }

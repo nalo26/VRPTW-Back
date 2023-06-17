@@ -19,9 +19,14 @@ public class InterRelocateOperator extends InterOperator {
         LinkedList<Client> clonedRoute1 = new LinkedList<>(clientList1);
         LinkedList<Client> clonedRoute2 = new LinkedList<>(clientList2);
         for (int clientIterator1 = 1; clientIterator1 < clientList1.size() - 1; clientIterator1++) {
-            for (int clientIterator2 = 1; clientIterator2 < clientList2.size(); clientIterator2++) {
+            for (int clientIterator2 = 1; clientIterator2 < clientList2.size() - 1; clientIterator2++) {
                 Pair<Camion, Camion> relocatedCamions = relocate(clonedRoute1, clonedRoute2, clientIterator1, clientIterator2);
-
+                if (!(checkRoute(relocatedCamions.getLeft()) && checkRoute(relocatedCamions.getRight()))) {
+                    clonedRoute1 = new LinkedList<>(clientList1);
+                    clonedRoute2 = new LinkedList<>(clientList2);
+                    newRoutes = new LinkedList<>(solution.routes());
+                    continue;
+                }
                 newRoutes.set(routeIterator1, relocatedCamions.getLeft());
                 newRoutes.set(routeIterator2, relocatedCamions.getRight());
 

@@ -21,7 +21,10 @@ public class InterExchangeOperator extends InterOperator {
         for (int clientIterator1 = 1; clientIterator1 < clientList1.size() - 1; clientIterator1++) {
             for (int clientIterator2 = 1; clientIterator2 < clientList2.size() - 1; clientIterator2++) {
                 Pair<Camion, Camion> exchangedCamion = exchange(clientIterator1, clientIterator2, clientList1, clientList2, route1.getDistance(), route2.getDistance());
-
+                if (!(checkRoute(exchangedCamion.getLeft()) && checkRoute(exchangedCamion.getRight()))) {
+                    newRoutes = new LinkedList<>(solution.routes());
+                    continue;
+                }
                 newRoutes.set(routeIterator1, exchangedCamion.getLeft());
                 newRoutes.set(routeIterator2, exchangedCamion.getRight());
 

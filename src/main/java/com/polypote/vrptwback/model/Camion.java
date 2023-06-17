@@ -41,15 +41,19 @@ public class Camion {
         if (currentCamionTime < client.getReady_time()) {
             currentCamionTime = client.getReady_time();
         }
-        boolean isFittingTimeWindow = currentCamionTime <= client.getDue_time();
-        final Client depot = route.get(0);
-        boolean canReachDepot = currentCamionTime + client.getService() + getEuclideanDistance(client.getX(), client.getY(), depot.getX(), depot.getY()) <= depot.getDue_time();
-        boolean canAdd = isFittingQuantity && isFittingDistance && isFittingTimeWindow && canReachDepot;
+        boolean canAdd = isFittingQuantity && isFittingDistance && checkTimeWindow(client);
         if (canAdd) {
             route.add(route.size() - 1, client);
             distance = newDistance;
             currentCamionTime += client.getService();
         }
         return canAdd;
+    }
+
+    public boolean checkTimeWindow(Client client) {
+        boolean isFittingTimeWindow = currentCamionTime <= client.getDue_time();
+        final Client depot = route.get(0);
+        boolean canReachDepot = currentCamionTime + client.getService() + getEuclideanDistance(client.getX(), client.getY(), depot.getX(), depot.getY()) <= depot.getDue_time();
+        return isFittingTimeWindow && canReachDepot;
     }
 }

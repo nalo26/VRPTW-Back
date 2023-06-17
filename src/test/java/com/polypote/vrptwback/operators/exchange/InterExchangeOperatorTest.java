@@ -41,28 +41,28 @@ class InterExchangeOperatorTest {
     private List<Solution> given_two_solutions_with_exchanged_clients() {
         return asList(createInterSolution(asList(
                         createCamion(asList(
-                                createClient("d1", 0, 0),
-                                createClient("c3", 0, 50),
-                                createClient("c2", 0, 20),
-                                createClient("d1", 0, 0)
+                                createClient("d1", 0, 0, 0, 230),
+                                createClient("c3", 0, 50, 100, 110),
+                                createClient("c2", 0, 20, 30, 40),
+                                createClient("d1", 0, 0, 0, 230)
                         ), 100),
                         createCamion(asList(
-                                createClient("d1", 0, 0),
-                                createClient("c1", 0, 10),
-                                createClient("d1", 0, 0)
+                                createClient("d1", 0, 0, 0, 230),
+                                createClient("c1", 0, 10, 10, 20),
+                                createClient("d1", 0, 0, 0, 230)
                         ), 20)
                 ), 120),
                 createInterSolution(asList(
                         createCamion(asList(
-                                createClient("d1", 0, 0),
-                                createClient("c1", 0, 10),
-                                createClient("c3", 0, 50),
-                                createClient("d1", 0, 0)
+                                createClient("d1", 0, 0, 0, 230),
+                                createClient("c1", 0, 10, 10, 20),
+                                createClient("c3", 0, 50, 100, 110),
+                                createClient("d1", 0, 0, 0, 230)
                         ), 100),
                         createCamion(asList(
-                                createClient("d1", 0, 0),
-                                createClient("c2", 0, 20),
-                                createClient("d1", 0, 0)
+                                createClient("d1", 0, 0, 0, 230),
+                                createClient("c2", 0, 20, 30, 40),
+                                createClient("d1", 0, 0, 0, 230)
                         ), 40)
                 ), 140));
     }
@@ -70,16 +70,16 @@ class InterExchangeOperatorTest {
     private Solution given_a_solution_with_three_clients_and_two_camions() {
         return createInterSolution(asList(
                 createCamion(asList(
-                        createClient("d1", 0, 0),
-                        createClient("c1", 0, 10),
-                        createClient("c2", 0, 20),
-                        createClient("d1", 0, 0)
+                        createClient("d1", 0, 0, 0, 230),
+                        createClient("c1", 0, 10, 10, 20),
+                        createClient("c2", 0, 20, 30, 40),
+                        createClient("d1", 0, 0, 0, 230)
 
                 ), 60),
                 createCamion(asList(
-                        createClient("d1", 0, 0),
-                        createClient("c3", 0, 50),
-                        createClient("d1", 0, 0)
+                        createClient("d1", 0, 0, 0, 230),
+                        createClient("c3", 0, 50, 100, 110),
+                        createClient("d1", 0, 0, 0, 230)
                 ), 100)
         ), 160);
     }

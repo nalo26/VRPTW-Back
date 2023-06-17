@@ -31,7 +31,10 @@ public class IntraRelocateOperator extends IntraOperator {
                 }
                 Camion newCamion = relocate(clonedRoutes, clientIterator1, clientIterator2);
                 clonedRoutes = new LinkedList<>(currentRoutes);
-
+                if (!checkRoute(newCamion)) {
+                    newRoutes = new LinkedList<>(solution.routes());
+                    continue;
+                }
                 addToResult(result, routeIterator, newRoutes, newCamion);
                 newRoutes = new LinkedList<>(solution.routes());
             }

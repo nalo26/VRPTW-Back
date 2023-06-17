@@ -29,9 +29,16 @@ public class TabouSearchAlgorithm extends AbstractAlgorithm {
         Solution xI = x0;
         Queue<Solution> tabouList = new LinkedList<>();
         for (int iterator = 0; iterator < maxIter; iterator++) {
-            List<Solution> neighbours = operatorsToUse.get(random.nextInt(operatorsToUse.size())).getNeighbours(xI);
+            final Operator operator = operatorsToUse.get(random.nextInt(operatorsToUse.size()));
+            System.out.println("using : " + operator.toString());
+            List<Solution> neighbours = operator.getNeighbours(xI);
             List<Solution> solutionsWithoutTabous = CollectionUtils.subtract(neighbours, tabouList, substractPredicate(tabouList)).stream().toList();
-            Solution bestSolution = getBestSolution(solutionsWithoutTabous);
+            Solution bestSolution = null;
+            try {
+                bestSolution = getBestSolution(solutionsWithoutTabous);
+            } catch (Exception e) {
+                continue;
+            }
             if (bestSolution.fitness() - xI.fitness() > 0) {
                 if (tabouList.size() == tabouListSize) {
                     tabouList.poll();
