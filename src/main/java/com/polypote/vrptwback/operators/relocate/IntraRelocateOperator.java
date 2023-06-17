@@ -39,6 +39,6 @@ public class IntraRelocateOperator extends IntraOperator {
                 newRoutes = new LinkedList<>(solution.routes());
             }
         }
-        System.out.println("Solutions successfully relocated in China");
+        //System.out.println("Solutions successfully relocated in China");
     }
 }

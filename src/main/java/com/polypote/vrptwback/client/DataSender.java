@@ -18,9 +18,13 @@ public class DataSender {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     public static void sendSolutionToFront(Solution solution) {
+        Solution clonedSolution = Solution.builder()
+                .routes(solution.routes().stream().filter(camion -> camion.getDistance() > 0).toList())
+                .fitness(solution.fitness())
+                .build();
         HttpPost httpPost = new HttpPost(FRONT_URL + "/back/update_graph");
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-            String requestBody = objectMapper.writeValueAsString(solution);
+            String requestBody = objectMapper.writeValueAsString(clonedSolution);
             StringEntity stringEntity = new StringEntity(requestBody);
             httpPost.setEntity(stringEntity);
             httpPost.setHeader("Accept", "application/json");
