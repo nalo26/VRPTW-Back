@@ -19,10 +19,17 @@ public class SimulatedAnnealingAlgorithm {
     private List<Operator> operatorList;
 
     public Solution resolve(final Solution x0) {
-        double t0 = calculateInitialTemperature(x0);
+        double t0 = Double.NEGATIVE_INFINITY;
+        while (t0 == Double.NEGATIVE_INFINITY) {
+            try {
+                t0 = calculateInitialTemperature(x0);
+            } catch (Exception ignored) {
+            }
+        }
         Solution xMin = x0;
         int fMin = x0.fitness();
         double currentTemperature = t0;
+        System.out.println("initial temperature : " + currentTemperature + ", initial fitness : " + fMin);
         for (int k = 0; k < changesOfTemperatures; k++) {
             for (int l = 0; l < movesAtTemperatureTk; l++) {
                 List<Solution> neighbours = operatorList.get(random.nextInt(operatorList.size())).getNeighbours(xMin);
@@ -48,6 +55,7 @@ public class SimulatedAnnealingAlgorithm {
             currentTemperature *= µ;
             DataSender.sendSolutionToFront(xMin);
         }
+        System.out.println("final temperature : " + currentTemperature + ", final fitness : " + xMin.fitness());
         return xMin;
     }
 
