@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataSender {
 
-    public static final String FRONT_URL = "http://localhost:8050";
+    public static final String FRONT_URL = "http://localhost:8090";
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
